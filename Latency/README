@@ -1,0 +1,3 @@
+This is a simple program that graphs the latency in response from google.com and yahoo.com.
+
+To run, simply type "make" in the root directory.
