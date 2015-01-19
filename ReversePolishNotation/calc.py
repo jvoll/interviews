@@ -6,10 +6,15 @@
 from token import TokenType
 from token import OperatorType
 from token import Token
+from rpn import RPNCalc
 
 class Calc:
 
-
+    def calc(self, expr):
+        rpn = RPNCalc()
+        rpnExpr = self.infixToPostfix(expr)
+        rpnExprList = rpnExpr.split(' ')
+        return rpn.rpn(rpnExprList)
 
     def infixToPostfix(self, expr):
         tokens = Token.tokenize(expr)
@@ -66,11 +71,20 @@ def main():
     t1 = "2 + 2"
     t2 = "(4 + 7) * 8"
     t3 = "((5 - 2) * 6)/9"
+    t4 = "(8 + 10) / (5-3)"
 
     c = Calc()
+
+    # Test infix to RPN
     print "in: ", t1, " out: ", c.infixToPostfix(t1)
     print "in: ", t2, " out: ", c.infixToPostfix(t2)
     print "in: ", t3, " out: ", c.infixToPostfix(t3)
+
+    # Test the calculator
+    print "in: ", t1, " out: ", c.calc(t1)
+    print "in: ", t2, " out: ", c.calc(t2)
+    print "in: ", t3, " out: ", c.calc(t3)
+    print "in: ", t4, " out: ", c.calc(t4)
 
 if __name__ == "__main__":
     main()
