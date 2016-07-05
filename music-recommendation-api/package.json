@@ -1,0 +1,25 @@
+{
+  "name": "music-recommendation-api",
+  "version": "1.0.0",
+  "description": "Simple music recommendation api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axiomzen/cc-JasonVoll-Music.git"
+  },
+  "author": "jvoll",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axiomzen/cc-JasonVoll-Music/issues"
+  },
+  "homepage": "https://github.com/axiomzen/cc-JasonVoll-Music",
+  "dependencies": {
+    "body-parser": "^1.12.0",
+    "express": "^4.11.2",
+    "mocha": "^2.1.0",
+    "mongodb": "^1.4.30"
+  }
+}
