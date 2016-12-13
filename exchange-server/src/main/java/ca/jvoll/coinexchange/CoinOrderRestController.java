@@ -1,12 +1,15 @@
 package ca.jvoll.coinexchange;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/{userId}/orders")
@@ -23,10 +26,15 @@ class CoinOrderRestController {
         this.accountRepository = accountRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    Collection<CoinOrder> readOrders(@PathVariable String userId) {
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    Resources<CoinOrderResource> readOrders(@PathVariable String userId) {
         this.validateUser(userId);
-        return this.coinOrderRepository.findByAccountUsername(userId);
+
+        List<CoinOrderResource> bookmarkResourceList = coinOrderRepository
+                .findByAccountUsername(userId).stream().map(CoinOrderResource::new)
+                .collect(Collectors.toList());
+
+        return new Resources<>(bookmarkResourceList);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -39,20 +47,18 @@ class CoinOrderRestController {
                     CoinOrder result = coinOrderRepository.save(new CoinOrder(account,
                             input.type, input.quantity, input.priceInCents));
 
-                    URI location = ServletUriComponentsBuilder
-                            .fromCurrentRequest().path("/{id}")
-                            .buildAndExpand(result.getId()).toUri();
+                    Link forOneBookmark = new CoinOrderResource(result).getLink("self");
 
-                    return ResponseEntity.created(location).build();
+                    return ResponseEntity.created(URI.create(forOneBookmark.getHref())).build();
                 })
                 .orElse(ResponseEntity.noContent().build());
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{orderId}")
-    CoinOrder readOrder(@PathVariable String userId, @PathVariable Long orderId) {
+    @RequestMapping(method = RequestMethod.GET, value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    CoinOrderResource readOrder(@PathVariable String userId, @PathVariable Long orderId) {
         this.validateUser(userId);
-        return this.coinOrderRepository.findOne(orderId);
+        return new CoinOrderResource(this.coinOrderRepository.findOne(orderId));
     }
 
     private void validateUser(String userId) {

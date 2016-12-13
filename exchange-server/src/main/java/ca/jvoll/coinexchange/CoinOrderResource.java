@@ -1,9 +1,9 @@
 package ca.jvoll.coinexchange;
 
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
  * @author Greg Turnquist
@@ -15,10 +15,10 @@ class CoinOrderResource extends ResourceSupport {
     public CoinOrderResource(CoinOrder coinOrder) {
         String username = coinOrder.getAccount().getUsername();
         this.coinOrder = coinOrder;
-//        this.add(new Link(bookmark.getUri(), "bookmark-uri"));
-//        this.add(linkTo(BookmarkRestController.class, username).withRel("bookmarks"));
-//        this.add(linkTo(methodOn(BookmarkRestController.class, username)
-//                .readBookmark(username, bookmark.getId())).withSelfRel());
+//        this.add(new Link(coinOrder.getType().toString(), "order-type"));
+        this.add(linkTo(CoinOrderRestController.class, username).withRel("orders"));
+        this.add(linkTo(methodOn(CoinOrderRestController.class, username)
+                .readOrder(username, coinOrder.getId())).withSelfRel());
     }
 
     public CoinOrder getCoinOrder() {

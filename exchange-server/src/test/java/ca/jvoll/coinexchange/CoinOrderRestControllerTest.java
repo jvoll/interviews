@@ -93,10 +93,10 @@ public class CoinOrderRestControllerTest {
                 + this.orderList.get(0).getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(this.orderList.get(0).getId().intValue())))
-                .andExpect(jsonPath("$.type", is(CoinOrder.Type.BUY.toString())))
-                .andExpect(jsonPath("$.quantity", is(5)))
-                .andExpect(jsonPath("$.priceInCents", is(10)));
+                .andExpect(jsonPath("$.coinOrder.id", is(this.orderList.get(0).getId().intValue())))
+                .andExpect(jsonPath("$.coinOrder.type", is(CoinOrder.Type.BUY.toString())))
+                .andExpect(jsonPath("$.coinOrder.quantity", is(5)))
+                .andExpect(jsonPath("$.coinOrder.priceInCents", is(10)));
     }
 
     @Test
@@ -104,15 +104,15 @@ public class CoinOrderRestControllerTest {
         mockMvc.perform(get("/" + userName + "/orders"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(this.orderList.get(0).getId().intValue())))
-                .andExpect(jsonPath("$[0].type", is(CoinOrder.Type.BUY.toString())))
-                .andExpect(jsonPath("$[0].quantity", is(5)))
-                .andExpect(jsonPath("$[0].priceInCents", is(10)))
-                .andExpect(jsonPath("$[1].id", is(this.orderList.get(1).getId().intValue())))
-                .andExpect(jsonPath("$[1].type", is(CoinOrder.Type.SELL.toString())))
-                .andExpect(jsonPath("$[1].quantity", is(7)))
-                .andExpect(jsonPath("$[1].priceInCents", is(11)));
+                .andExpect(jsonPath("$.content", hasSize(2)))
+                .andExpect(jsonPath("$.content[0].coinOrder.id", is(this.orderList.get(0).getId().intValue())))
+                .andExpect(jsonPath("$.content[0].coinOrder.type", is(CoinOrder.Type.BUY.toString())))
+                .andExpect(jsonPath("$.content[0].coinOrder.quantity", is(5)))
+                .andExpect(jsonPath("$.content[0].coinOrder.priceInCents", is(10)))
+                .andExpect(jsonPath("$.content[1].coinOrder.id", is(this.orderList.get(1).getId().intValue())))
+                .andExpect(jsonPath("$.content[1].coinOrder.type", is(CoinOrder.Type.SELL.toString())))
+                .andExpect(jsonPath("$.content[1].coinOrder.quantity", is(7)))
+                .andExpect(jsonPath("$.content[1].coinOrder.priceInCents", is(11)));
     }
 
     @Test
