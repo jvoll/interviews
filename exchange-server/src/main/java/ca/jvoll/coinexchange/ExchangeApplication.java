@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 
+/**
+ * This tutorial with a twist away from bookmarks: http://spring.io/guides/tutorials/bookmarks/
+ */
 @SpringBootApplication
 public class ExchangeApplication {
 

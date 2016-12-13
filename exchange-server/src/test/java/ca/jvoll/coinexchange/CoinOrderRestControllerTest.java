@@ -88,7 +88,7 @@ public class CoinOrderRestControllerTest {
     }
 
     @Test
-    public void readSingleBookmark() throws Exception {
+    public void readSingleOrder() throws Exception {
         mockMvc.perform(get("/" + userName + "/orders/"
                 + this.orderList.get(0).getId()))
                 .andExpect(status().isOk())
@@ -100,7 +100,7 @@ public class CoinOrderRestControllerTest {
     }
 
     @Test
-    public void readBookmarks() throws Exception {
+    public void readOrders() throws Exception {
         mockMvc.perform(get("/" + userName + "/orders"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -116,9 +116,10 @@ public class CoinOrderRestControllerTest {
     }
 
     @Test
-    public void createBookmark() throws Exception {
+    public void createOrder() throws Exception {
         String orderJson = json(new CoinOrder(
                 this.account, CoinOrder.Type.SELL, 15, 22));
+        System.out.println(orderJson);
 
         this.mockMvc.perform(post("/" + userName + "/orders")
                 .contentType(contentType)
