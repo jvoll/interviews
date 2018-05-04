@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/jason/dev/interviews/FragmentBasics1/app/build/intermediates/res/merged/debug/layout/news_articles.xml",
+        "source": "/Users/jason/dev/interviews/FragmentBasics1/app/src/main/res/layout/news_articles.xml"
+    },
+    {
+        "merged": "/Users/jason/dev/interviews/FragmentBasics1/app/build/intermediates/res/merged/debug/layout/article_view.xml",
+        "source": "/Users/jason/dev/interviews/FragmentBasics1/app/src/main/res/layout/article_view.xml"
+    }
+]

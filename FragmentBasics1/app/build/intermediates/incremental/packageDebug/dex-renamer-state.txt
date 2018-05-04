@@ -1,0 +1,4 @@
+#Thu Dec 15 20:29:07 PST 2016
+base.0=/Users/jason/dev/interviews/FragmentBasics1/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/Users/jason/dev/interviews/FragmentBasics1/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
